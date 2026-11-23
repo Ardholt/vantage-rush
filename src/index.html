@@ -52,6 +52,16 @@ h1 b{color:var(--sky)}
 .idle{font-size:2.2vmin;color:var(--ice);opacity:.8}
 .rounds{display:flex;gap:3vmin;font-size:2.6vmin}.rounds b{color:var(--sky)}
 #err{font-size:3vmin;padding:6vmin;text-align:center}
+@media (orientation:portrait) and (max-width:600px){
+.row{flex-direction:column}
+.cta{max-width:88vw;text-align:center;font-size:3.8vmin;padding:1.6vmin 4vmin}
+.hud{gap:2vmin}.hud span:not(.q){white-space:nowrap}
+.play{flex-direction:column;justify-content:flex-start;gap:3vmin}
+.play canvas{max-width:none}
+#map{order:-1;flex:none;width:min(94vw,52vh);height:auto}
+#pc{flex:none;height:calc(100% - min(94vw,52vh) - 3vmin)!important;max-width:94vw}
+.pop{left:50%;top:calc(min(94vw,52vh) + 5vmin);max-width:86vw}
+}
 </style>
 </head>
 <body>

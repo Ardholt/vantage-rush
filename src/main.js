@@ -23,8 +23,9 @@ const pickShot = (s) => s.shots[Math.floor(Math.random() * s.shots.length)];
 let actx = null, muted = false;
 const sfx = (() => {
   const ensure = () => {
-    if (!actx) { const C = window.AudioContext || window.webkitAudioContext; if (C) actx = new C(); }
-    if (actx && actx.state === 'suspended') actx.resume();
+    const ua = navigator.userActivation, ok = !ua || ua.isActive;
+    if (!actx) { const C = window.AudioContext || window.webkitAudioContext; if (C && ok) actx = new C(); }
+    if (actx && actx.state === 'suspended' && ok) actx.resume();
     return actx;
   };
   const tone = (f0, f1, delay, dur, vol, type = 'sine') => {
@@ -46,6 +47,9 @@ muteBtn.tabIndex = -1;
 muteBtn.addEventListener('pointerdown', (e) => e.stopPropagation());
 muteBtn.onclick = () => { sfx.unlock(); muted = !muted; muteBtn.textContent = muted ? 'SOUND: OFF' : 'SOUND: ON'; muteBtn.blur(); };
 document.body.append(muteBtn);
+const UNLOCK = ['pointerdown', 'touchstart', 'touchend', 'click', 'keydown'];
+const unlockAudio = () => { if (sfx.unlock()) UNLOCK.forEach((t) => removeEventListener(t, unlockAudio, true)); };
+UNLOCK.forEach((t) => addEventListener(t, unlockAudio, { capture: true, passive: true }));
 
 
 /* ---------- reset: drop the player, keep only the leaderboard (it lives in localStorage) ---------- */
