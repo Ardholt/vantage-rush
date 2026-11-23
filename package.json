@@ -1,0 +1,19 @@
+{
+  "name": "vantage-rush",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Vantage Rush: a 3-round, under-3-minute point-and-click booth game. Offline, no login.",
+  "license": "MIT",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs"
+  },
+  "dependencies": {
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.65.1",
+    "vite": "^8.3.8"
+  }
+}
